@@ -31,6 +31,8 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
     />
     <link rel="stylesheet" href="style.css" />
+    <script data-goatcounter="https://cloudre01.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -123,12 +125,14 @@
       </a>
       <nav class="topnav">
         <a href="https://github.com/cloudre01/switchlet-release/releases"
+          onclick="goatcounter.count({path:'releases'})"
           >Releases</a
         >
         <a
           class="gh-link"
           href="https://github.com/cloudre01/switchlet-release"
           aria-label="GitHub"
+          onclick="goatcounter.count({path:'github'})"
         >
           <svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true">
             <path
@@ -163,6 +167,7 @@
                 class="btn primary"
                 href="https://github.com/cloudre01/switchlet-release/releases/latest/download/Switchlet.dmg"
                 rel="noopener"
+                onclick="goatcounter.count({path:'download'})"
               >
                 <span>Download for macOS</span>
                 <svg class="btn-arrow" viewBox="0 0 16 16" aria-hidden="true">
@@ -179,6 +184,7 @@
               <a
                 class="btn ghost"
                 href="https://github.com/cloudre01/switchlet-release/releases/latest"
+                onclick="goatcounter.count({path:'releases'})"
                 >All releases</a
               >
             </div>
@@ -691,6 +697,7 @@
             <a
               class="get-secondary"
               href="https://github.com/cloudre01/switchlet-release/releases"
+              onclick="goatcounter.count({path:'releases'})"
               >View release notes &rarr;</a
             >
           </div>
@@ -712,7 +719,9 @@
         </p>
         <p class="footer-copy">© 2026 Switchlet. All rights reserved.</p>
         <nav class="footer-nav">
-          <a href="https://github.com/cloudre01/switchlet-release">GitHub</a>
+          <a href="https://github.com/cloudre01/switchlet-release"
+          onclick="goatcounter.count({path:'github'})"
+          >GitHub</a
           <a href="https://github.com/cloudre01/switchlet-release/issues"
             >Report a bug</a
           >
