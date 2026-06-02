@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Switchlet — Route links to the right browser profile</title>
+    <meta
+      name="description"
+      content="A macOS menu bar app for routing http/https links to the Chrome or Firefox profile you want — per-domain or globally. Signed, notarized, free."
+    />
+    <meta name="theme-color" content="#f6f1e8" />
+    <meta
+      property="og:title"
+      content="Switchlet — Route links to the right browser profile"
+    />
+    <meta
+      property="og:description"
+      content="A macOS menu bar app for routing http/https links to the Chrome or Firefox profile you want — per-domain or globally."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://cloudre01.github.io/switchlet-release/"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <svg class="kbd-defs" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="kbd-shift" viewBox="0 0 14 14">
+          <path
+            d="M7 2.5 L3 7 H5.5 V11.5 H8.5 V7 H11 Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </symbol>
+        <symbol id="kbd-cmd" viewBox="0 0 14 14">
+          <rect
+            x="1"
+            y="1"
+            width="5"
+            height="5"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <rect
+            x="8"
+            y="1"
+            width="5"
+            height="5"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <rect
+            x="1"
+            y="8"
+            width="5"
+            height="5"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <rect
+            x="8"
+            y="8"
+            width="5"
+            height="5"
+            rx="1.2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          />
+          <line
+            x1="6"
+            y1="7"
+            x2="8"
+            y2="7"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+          <line
+            x1="7"
+            y1="6"
+            x2="7"
+            y2="8"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header class="topbar reveal" data-reveal-order="0">
+      <a class="wordmark" href="/" aria-label="Switchlet home">
+        <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M15.8454 3.34C16.5599 3.34 17.2206 3.721 17.5778 4.34L21.4225 11C21.7798 11.619 21.7798 12.381 21.4225 13L17.5778 19.66C17.2206 20.279 16.5599 20.66 15.8454 20.66H8.15495C7.44042 20.66 6.7798 20.279 6.42253 19.66L2.5778 13C2.22054 12.381 2.22054 11.619 2.5778 11L6.42253 4.34C6.7798 3.721 7.44042 3.34 8.15495 3.34H15.8454ZM10.155 6.804C9.44044 6.804 8.7798 7.185 8.42253 7.804L6.5778 11C6.22054 11.619 6.22054 12.381 6.5778 13L8.42253 16.196C8.7798 16.815 9.44044 17.196 10.155 17.196H13.8454C14.5599 17.196 15.2206 16.815 15.5778 16.196L17.4225 13C17.7798 12.381 17.7798 11.619 17.4225 11L15.5778 7.804C15.2206 7.185 14.5599 6.804 13.8454 6.804H10.155Z"
+            fill="currentColor"
+          />
+          <circle cx="12" cy="12" r="2" fill="currentColor" />
+        </svg>
+        <span>Switchlet</span>
+      </a>
+      <nav class="topnav">
+        <a href="https://github.com/cloudre01/switchlet-release/releases"
+          >Releases</a
+        >
+        <a
+          class="gh-link"
+          href="https://github.com/cloudre01/switchlet-release"
+          aria-label="GitHub"
+        >
+          <svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            />
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-text">
+            <p class="kicker reveal" data-reveal-order="1">
+              <span class="badge">v1.0.0</span>
+              <span class="kicker-sep">·</span>
+              <span>macOS 13+</span>
+              <span class="kicker-sep">·</span>
+              <span>Signed &amp; Notarized</span>
+            </p>
+            <h1 class="display reveal" data-reveal-order="2">
+              Route links to <em>the&nbsp;right</em> browser profile.
+            </h1>
+            <p class="lede reveal" data-reveal-order="3">
+              Switchlet is a macOS menu bar app that lets you pick which Browser
+              opens your links per-domain or globally.
+            </p>
+            <div class="cta-row reveal" data-reveal-order="4">
+              <a
+                class="btn primary"
+                href="https://github.com/cloudre01/switchlet-release/releases/latest/download/Switchlet.dmg"
+                rel="noopener"
+              >
+                <span>Download for macOS</span>
+                <svg class="btn-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M3 8h10M9 4l4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <a
+                class="btn ghost"
+                href="https://github.com/cloudre01/switchlet-release/releases/latest"
+                >All releases</a
+              >
+            </div>
+            <p class="cta-meta reveal" data-reveal-order="5">
+              <span class="mono">Switchlet 1.0.0</span>
+              <span class="dot">·</span>
+              <span>Apple Silicon &amp; Intel</span>
+              <span class="dot">·</span>
+            </p>
+          </div>
+
+          <aside class="hero-aside reveal" data-reveal-order="6">
+            <p class="aside-label">Default route</p>
+            <p class="aside-line">
+              <span class="dot-c accent"></span>
+              <span class="mono">http://</span> &amp;
+              <span class="mono">https://</span>
+            </p>
+            <p class="aside-sub">
+              Switchlet takes over from your default browser and asks the menu
+              for a target profile before opening.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="visual reveal" data-reveal-order="7">
+        <div class="container">
+          <figure
+            class="menubar-mock"
+            aria-label="The Switchlet menu bar dropdown"
+          >
+            <div class="mb-strip">
+              <span class="mb-faded" aria-hidden="true">􀣺</span>
+              <span class="mb-faded">Chrome</span>
+              <span class="mb-faded">File</span>
+              <span class="mb-faded">Edit</span>
+              <span class="mb-faded">View</span>
+              <span class="mb-spacer"></span>
+              <button
+                type="button"
+                class="mb-app"
+                aria-label="Switchlet menu"
+                aria-expanded="false"
+                aria-controls="switchlet-dropdown"
+              >
+                <svg class="mb-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M15.8454 3.34C16.5599 3.34 17.2206 3.721 17.5778 4.34L21.4225 11C21.7798 11.619 21.7798 12.381 21.4225 13L17.5778 19.66C17.2206 20.279 16.5599 20.66 15.8454 20.66H8.15495C7.44042 20.66 6.7798 20.279 6.42253 19.66L2.5778 13C2.22054 12.381 2.22054 11.619 2.5778 11L6.42253 4.34C6.7798 3.721 7.44042 3.34 8.15495 3.34H15.8454ZM10.155 6.804C9.44044 6.804 8.7798 7.185 8.42253 7.804L6.5778 11C6.22054 11.619 6.22054 12.381 6.5778 13L8.42253 16.196C8.7798 16.815 9.44044 17.196 10.155 17.196H13.8454C14.5599 17.196 15.2206 16.815 15.5778 16.196L17.4225 13C17.7798 12.381 17.7798 11.619 17.4225 11L15.5778 7.804C15.2206 7.185 14.5599 6.804 13.8454 6.804H10.155Z"
+                    fill="currentColor"
+                  />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                </svg>
+              </button>
+              <span class="mb-battery" aria-hidden="true">
+                <svg class="mb-battery-svg" viewBox="0 0 28 14" fill="none">
+                  <rect
+                    x="0.75"
+                    y="0.75"
+                    width="24.5"
+                    height="12.5"
+                    rx="3"
+                    ry="3"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <rect
+                    x="2.5"
+                    y="2.5"
+                    width="18"
+                    height="9"
+                    rx="1.5"
+                    ry="1.5"
+                    fill="currentColor"
+                  />
+                  <rect
+                    x="26"
+                    y="5"
+                    width="2"
+                    height="4"
+                    rx="0.5"
+                    ry="0.5"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <span class="mb-faded" aria-hidden="true">􀙇</span>
+              <span class="mb-faded">Mon 10:42</span>
+            </div>
+            <div class="mb-dropdown" id="switchlet-dropdown">
+              <div class="m-row m-selected">
+                <span class="m-main">Route Clipboard URL</span>
+                <span class="m-right kbd">
+                  <svg class="kbd-key" aria-label="shift">
+                    <use href="#kbd-shift" />
+                  </svg>
+                  <svg class="kbd-key" aria-label="command">
+                    <use href="#kbd-cmd" />
+                  </svg>
+                  <span class="kbd-letter">L</span>
+                </span>
+              </div>
+              <div class="m-row">
+                <span class="m-main">Setup Switchlet</span>
+              </div>
+              <div class="m-divider"></div>
+              <div class="m-row">
+                <span class="m-main">
+                  <svg class="m-icon" viewBox="0 0 16 16" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"
+                    />
+                  </svg>
+                  Settings
+                </span>
+                <span class="m-right kbd">
+                  <svg class="kbd-key" aria-label="command">
+                    <use href="#kbd-cmd" />
+                  </svg>
+                  <span class="kbd-letter">,</span>
+                </span>
+              </div>
+              <div class="m-row">
+                <span class="m-main">
+                  <svg class="m-icon" viewBox="0 0 16 16" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                      d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"
+                    />
+                  </svg>
+                  Refresh Browsers
+                </span>
+              </div>
+              <div class="m-divider"></div>
+              <div class="m-row">
+                <span class="m-main">About Switchlet</span>
+              </div>
+              <div class="m-row">
+                <span class="m-main">Check for Updates</span>
+              </div>
+              <div class="m-divider"></div>
+              <div class="m-row">
+                <span class="m-main">Quit Switchlet</span>
+                <span class="m-right kbd">
+                  <svg class="kbd-key" aria-label="command">
+                    <use href="#kbd-cmd" />
+                  </svg>
+                  <span class="kbd-letter">Q</span>
+                </span>
+              </div>
+            </div>
+          </figure>
+
+          <figure class="chooser-hud" aria-label="Browser chooser HUD">
+            <div class="chooser-titlebar">
+              <div class="chooser-urlbar">
+                <span class="chooser-globe" aria-hidden="true">
+                  <svg viewBox="0 0 16 16">
+                    <circle
+                      cx="8"
+                      cy="8"
+                      r="6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                    />
+                    <ellipse
+                      cx="8"
+                      cy="8"
+                      rx="2.5"
+                      ry="6"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                    />
+                    <line
+                      x1="2"
+                      y1="8"
+                      x2="14"
+                      y2="8"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                    />
+                  </svg>
+                </span>
+                <span class="chooser-url"
+                  >github.com/cloudre01/switchlet-release</span
+                >
+              </div>
+              <span class="chooser-clipboard">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                  width="48"
+                  height="48"
+                  stroke="oklch(60% 0.008 260)"
+                  fill="oklch(60% 0.008 260)"
+                >
+                  <path
+                    data-layer="monochrome-0"
+                    d="M17.538 27.6c.612 0 1.112-.25 1.712-.812l9.863-9.313c.474-.45.637-.925.637-1.338 0-.425-.15-.887-.637-1.35L19.25 5.563c-.663-.625-1.075-.888-1.687-.888-.875 0-1.5.688-1.5 1.525v4.725H15.7c-8.987 0-12.9 5.762-12.9 15C2.8 27 3.413 27.6 4.088 27.6c.524 0 1.1-.125 1.537-.925 2.175-4.088 5.238-5.312 10.075-5.312h.363v4.775c0 .837.625 1.462 1.475 1.462m.712-2.687c-.1 0-.175-.076-.175-.188v-4.838c0-.287-.125-.412-.412-.412h-1.675c-5.938 0-9.725 2.063-11.2 5.2-.038.087-.063.125-.126.125-.05 0-.087-.038-.087-.137.25-5.9 2.825-11.85 11.413-11.85h1.675c.287 0 .412-.126.412-.413V7.438c0-.1.075-.175.188-.175.074 0 .15.05.212.1l8.9 8.537c.087.088.125.162.125.237s-.025.138-.125.238L18.462 24.8a.28.28 0 0 1-.212.113"
+                  />
+                </svg>
+                <em>Clipboard</em>
+              </span>
+            </div>
+
+            <div class="chooser-grid">
+              <div class="chooser-option chooser-selected" tabindex="-1">
+                <div class="chooser-logo">
+                  <img
+                    src="/assets/browsers/safari-icon.svg"
+                    alt=""
+                    width="48"
+                    height="48"
+                  />
+                </div>
+                <div class="chooser-text">
+                  <div class="chooser-name">Safari</div>
+                </div>
+                <span class="chooser-num">1</span>
+              </div>
+
+              <div class="chooser-option" tabindex="-1">
+                <div class="chooser-logo">
+                  <img
+                    src="/assets/browsers/google-chrome-icon.svg"
+                    alt=""
+                    width="48"
+                    height="48"
+                  />
+                </div>
+                <div class="chooser-text">
+                  <div class="chooser-name">Google Chrome</div>
+                  <div class="chooser-meta">3 profiles</div>
+                </div>
+                <span class="chooser-chevron">&#x203A;</span>
+                <span class="chooser-num">2</span>
+              </div>
+
+              <div class="chooser-option" tabindex="-1">
+                <div class="chooser-logo">
+                  <img
+                    src="/assets/browsers/arc-browser-icon.svg"
+                    alt=""
+                    width="48"
+                    height="48"
+                  />
+                </div>
+                <div class="chooser-text">
+                  <div class="chooser-name">Arc</div>
+                </div>
+                <span class="chooser-num">3</span>
+              </div>
+
+              <div class="chooser-option" tabindex="-1">
+                <div class="chooser-logo">
+                  <img
+                    src="/assets/browsers/firefox-browser-icon.svg"
+                    alt=""
+                    width="48"
+                    height="48"
+                  />
+                </div>
+                <div class="chooser-text">
+                  <div class="chooser-name">Firefox</div>
+                  <div class="chooser-meta">1 profiles</div>
+                </div>
+                <span class="chooser-chevron">&#x203A;</span>
+                <span class="chooser-num">4</span>
+              </div>
+            </div>
+
+            <div class="chooser-actions">
+              <span class="chooser-action">
+                <span class="chooser-icon"> ↩ </span>
+                Open
+              </span>
+              <span class="chooser-action chooser-action-cancel"
+                ><span class="chooser-icon">⎋</span> Cancel</span
+              >
+              <span class="chooser-action">
+                <span class="chooser-icon">⌘C</span>
+                Copy link
+              </span>
+            </div>
+          </figure>
+
+          <figcaption class="visual-caption">
+            <span class="mono">Switchlet menu & picker</span>
+          </figcaption>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <header class="section-head">
+            <p class="section-eyebrow">What it does</p>
+            <h2 class="section-title">
+              A small app that does <em>one thing</em> well.
+            </h2>
+          </header>
+
+          <div class="features-grid">
+            <article class="feature">
+              <p class="feature-num">01</p>
+              <h3>Per-domain rules</h3>
+              <p>
+                Route <code>*.github.com</code> to Chrome Work,
+                <code>*.youtube.com</code> to Chrome Personal, and the rest to
+                whatever profile you set as default.
+              </p>
+              <pre class="codeblock"><span class="cm"># Rules</span>
+*.github.com  → Chrome · Work
+*.youtube.com → Chrome · Personal
+*             → Chrome · Work</pre>
+            </article>
+
+            <article class="feature">
+              <p class="feature-num">02</p>
+              <h3>Reads existing profiles</h3>
+              <p>
+                No duplicate accounts, no cloud sync, no browser extensions.
+                Switchlet reads your existing Chrome and Firefox profile names
+                from <code>~/Library/Application Support</code> and shows them
+                in the menu.
+              </p>
+            </article>
+
+            <article class="feature">
+              <p class="feature-num">03</p>
+              <h3>Tracker stripping</h3>
+              <p>
+                Switchlet strips <code>utm_*</code>, <code>fbclid</code>,
+                <code>gclid</code>, and 30+ other trackers from URLs before they
+                reach the browser. Your links, without the surveillance.
+              </p>
+            </article>
+
+            <article class="feature">
+              <p class="feature-num">04</p>
+              <h3>Native app handoff</h3>
+              <p>
+                Spotify links open in the Spotify app, Notion in Notion, GitHub
+                in the desktop client. Set per-domain rules to bypass the
+                browser entirely for the apps you live in.
+              </p>
+            </article>
+
+            <article class="feature feature-tall">
+              <p class="feature-num">05</p>
+              <h3>Clipboard link picker</h3>
+              <p>
+                Copy multiple links to your clipboard. Trigger Switchlet and it
+                detects every URL. Just pick one and open it with your chosen profile.
+              </p>
+              <div class="hud-mock">
+                <div class="hud-mock-title">
+                  <div class="hud-urlbar">
+                    <span class="hud-mock-link" aria-hidden="true">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 32 32"
+                        width="32"
+                        height="32"
+                        stroke="oklch(60% 0.008 260)"
+                        fill="oklch(60% 0.008 260)"
+                      >
+                        <path
+                          data-layer="monochrome-0"
+                          d="m15.78 11.317-1.621 1.646c1.61.135 2.658.61 3.45 1.403 2.135 2.134 2.123 5.158.013 7.268l-3.988 3.976c-2.122 2.122-5.122 2.134-7.256.012-2.134-2.146-2.122-5.146 0-7.268l2.39-2.39c-.341-.769-.427-1.684-.292-2.476L4.89 17.06c-2.914 2.927-2.939 7.073.012 10.024 2.964 2.964 7.11 2.94 10.025.025l4.17-4.183c2.927-2.927 2.952-7.073-.012-10.025-.768-.768-1.744-1.317-3.305-1.585m-.304 10.049 1.621-1.646c-1.61-.122-2.658-.61-3.45-1.403-2.135-2.134-2.123-5.158-.013-7.268l3.976-3.976c2.134-2.122 5.134-2.134 7.268 0s2.11 5.147 0 7.256l-2.39 2.39c.341.781.414 1.683.293 2.476l3.585-3.573c2.914-2.927 2.939-7.061-.012-10.024-2.964-2.964-7.11-2.94-10.037-.013l-4.158 4.171c-2.927 2.927-2.952 7.073.012 10.025.768.768 1.744 1.317 3.305 1.585"
+                        />
+                      </svg>
+                    </span>
+                    <span class="hud-mock-text">Choose a link to open</span>
+                    <span class="hud-mock-count">2 links</span>
+                  </div>
+                </div>
+                <div class="hud-mock-list">
+                  <div class="hud-mock-row hud-mock-selected">
+                    <div class="hud-mock-text">
+                      <div class="hud-mock-row-title">google.com</div>
+                      <div class="hud-mock-row-sub">google.com</div>
+                    </div>
+                    <span class="hud-mock-num">1</span>
+                  </div>
+                  <div class="hud-mock-row">
+                    <div class="hud-mock-text">
+                      <div class="hud-mock-row-title">x.com</div>
+                      <div class="hud-mock-row-sub">x.com/.../cloudre01</div>
+                    </div>
+                    <span class="hud-mock-num">2</span>
+                  </div>
+                </div>
+                <div class="hud-mock-actions">
+                  <span class="hud-mock-action">
+                    <span class="chooser-icon">↩</span>
+                    Open
+                  </span>
+                  <span class="hud-mock-action">
+                    <span class="chooser-icon">⎋</span>
+                    Cancel
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="how">
+        <div class="container">
+          <header class="section-head">
+            <p class="section-eyebrow">How it works</p>
+            <h2 class="section-title">
+              Three steps, then it&rsquo;s invisible.
+            </h2>
+          </header>
+
+          <ol class="how-list">
+            <li>
+              <span class="how-num">01</span>
+              <div>
+                <h3>Install</h3>
+                <p>
+                  Download the DMG, drag Switchlet into
+                  <code>/Applications</code>. First launch is verified by
+                  Gatekeeper. No special permissions, no shell helpers.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="how-num">02</span>
+              <div>
+                <h3>Grant default browser</h3>
+                <p>
+                  Open
+                  <strong
+                    >System Settings &rarr; Desktop &amp; Dock &rarr; Default
+                    web browser</strong
+                  >
+                  and pick Switchlet. macOS confirms and routes
+                  <code>http(s)://</code> links to it.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="how-num">03</span>
+              <div>
+                <h3>Set your rules</h3>
+                <p>
+                  Click the menu bar icon, choose a default profile, and add
+                  per-domain rules from any page you have open. Switchlet then
+                  stays out of your way.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="promise">
+        <div class="container">
+          <div class="promise-inner">
+            <p class="promise-eyebrow">Private by design</p>
+            <p class="promise-text">
+              No account. No analytics. No network calls. Switchlet reads your
+              browser profile metadata locally, decides which profile should
+              open a link, and hands it off seamlessly.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="get">
+        <div class="container get-grid">
+          <div>
+            <h2 class="get-title">Get Switchlet.</h2>
+            <p class="get-sub">
+              Free to download and use. Signed, notarized, and small enough to
+              live in your menu bar forever.
+            </p>
+          </div>
+          <div class="get-cta">
+            <a
+              class="btn primary"
+              href="https://github.com/cloudre01/switchlet-release/releases/latest/download/Switchlet.dmg"
+              rel="noopener"
+            >
+              <span>Download Switchlet</span>
+              <svg class="btn-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                <path
+                  d="M3 8h10M9 4l4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <a
+              class="get-secondary"
+              href="https://github.com/cloudre01/switchlet-release/releases"
+              >View release notes &rarr;</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p class="footer-mark">
+          <svg class="mark small" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M15.8454 3.34C16.5599 3.34 17.2206 3.721 17.5778 4.34L21.4225 11C21.7798 11.619 21.7798 12.381 21.4225 13L17.5778 19.66C17.2206 20.279 16.5599 20.66 15.8454 20.66H8.15495C7.44042 20.66 6.7798 20.279 6.42253 19.66L2.5778 13C2.22054 12.381 2.22054 11.619 2.5778 11L6.42253 4.34C6.7798 3.721 7.44042 3.34 8.15495 3.34H15.8454ZM10.155 6.804C9.44044 6.804 8.7798 7.185 8.42253 7.804L6.5778 11C6.22054 11.619 6.22054 12.381 6.5778 13L8.42253 16.196C8.7798 16.815 9.44044 17.196 10.155 17.196H13.8454C14.5599 17.196 15.2206 16.815 15.5778 16.196L17.4225 13C17.7798 12.381 17.7798 11.619 17.4225 11L15.5778 7.804C15.2206 7.185 14.5599 6.804 13.8454 6.804H10.155Z"
+              fill="currentColor"
+            />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+          </svg>
+          <span>Switchlet &middot; v1.0.0</span>
+        </p>
+        <p class="footer-copy">© 2026 Switchlet. All rights reserved.</p>
+        <nav class="footer-nav">
+          <a href="https://github.com/cloudre01/switchlet-release">GitHub</a>
+          <a href="https://github.com/cloudre01/switchlet-release/issues"
+            >Report a bug</a
+          >
+          <a href="/README.md">README</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var app = document.querySelector(".mb-app");
+        var dropdown = document.getElementById("switchlet-dropdown");
+        if (app && dropdown) {
+          function setOpen(open) {
+            dropdown.classList.toggle("open", open);
+            app.setAttribute("aria-expanded", open ? "true" : "false");
+          }
+          app.addEventListener("click", function (e) {
+            e.stopPropagation();
+            setOpen(!dropdown.classList.contains("open"));
+          });
+          document.addEventListener("click", function (e) {
+            if (!dropdown.contains(e.target) && !app.contains(e.target)) {
+              setOpen(false);
+            }
+          });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") setOpen(false);
+          });
+        }
+
+        var visual = document.querySelector(".visual");
+        if (visual && "IntersectionObserver" in window) {
+          var animObserver = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (
+                  entry.isIntersecting &&
+                  !visual.classList.contains("animate")
+                ) {
+                  visual.classList.add("animate");
+                  animObserver.unobserve(visual);
+                }
+              });
+            },
+            { threshold: 0.3 },
+          );
+          animObserver.observe(visual);
+        }
+
+        var hud = document.querySelector(".chooser-hud");
+        if (hud && visual) {
+          hud.addEventListener("animationend", function (e) {
+            if (e.animationName === "chooserAppear") {
+              visual.classList.add("interactive");
+            }
+          });
+        }
+
+        var grid = document.querySelector(".chooser-grid");
+        if (grid) {
+          grid.addEventListener("click", function (e) {
+            var option = e.target.closest(".chooser-option");
+            if (!option) return;
+            grid.querySelectorAll(".chooser-option").forEach(function (el) {
+              el.classList.remove("chooser-selected");
+            });
+            option.classList.add("chooser-selected");
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
