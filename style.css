@@ -1549,6 +1549,85 @@ pre {
 }
 
 /* ============================================================
+   Legal pages
+   ============================================================ */
+.legal-topbar {
+  padding-bottom: 0;
+}
+.legal-main {
+  padding-bottom: 4rem;
+}
+.legal-shell {
+  max-width: 760px;
+}
+.legal-hero {
+  padding-top: clamp(3rem, 7vw, 5rem);
+  padding-bottom: 2rem;
+  border-top: 1px solid var(--line);
+}
+.legal-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+.legal-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.legal-intro {
+  max-width: 46ch;
+  font-size: 1.0625rem;
+  color: var(--ink-soft);
+}
+.legal-content {
+  padding-top: 1rem;
+}
+.legal-prose {
+  color: var(--ink-soft);
+}
+.legal-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 2rem 0 0.75rem;
+}
+.legal-prose p,
+.legal-prose ul {
+  max-width: 65ch;
+}
+.legal-prose p + p,
+.legal-prose p + ul,
+.legal-prose ul + p,
+.legal-prose ul + ul {
+  margin-top: 0.875rem;
+}
+.legal-prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.legal-prose li + li {
+  margin-top: 0.45rem;
+}
+.legal-prose a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.16em;
+}
+.legal-prose a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* ============================================================
    Responsive tweaks
    ============================================================ */
 @media (max-width: 600px) {
